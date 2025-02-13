@@ -46,13 +46,12 @@ public class UserMessageDao {
 
             if(userId != null) {
             	ps.setInt(3, userId);
-
             	if (!StringUtils.isBlank(searchWord)) {
-    				ps.setString(4, "%" + searchWord + "%");
+    				ps.setString(4, searchWord + "%");
     			}
-            } else {
+    		} else {
     			if (!StringUtils.isBlank(searchWord)) {
-    				ps.setString(3, "%" + searchWord + "%");
+    				ps.setString(3, searchWord + "%");
     			}
     		}
 
@@ -60,7 +59,8 @@ public class UserMessageDao {
 
             List<UserMessage> messages = toUserMessages(rs);
             return messages;
-        } catch (SQLException e) {
+
+            } catch (SQLException e) {
             throw new SQLRuntimeException(e);
         } finally {
             close(ps);
